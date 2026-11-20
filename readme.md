@@ -1,70 +1,66 @@
 # Seed Classification using Random Forest
 
-This project implements a **Random Forest classifier** to predict the class of wheat seeds based on their geometric and physical properties.  
-The project demonstrates basic data preprocessing, exploratory visualization, model training, and evaluation.
-
----
-
-## Objective
-
-To classify seeds into one of three classes using measurable physical features such as area, perimeter, and kernel shape attributes.
-
----
+This project trains a Random Forest classifier to predict one of three seed classes from geometric measurements. It includes a small exploratory chart, a train/test split, model fitting, and accuracy evaluation.
 
 ## Dataset
 
-- **File:** `seeds_dataset.csv`
-- **Target Column:** `Class (1, 2, 3)`
-- **Dropped Columns:**  
-  - `Unnamed: 8`  
-  - `Unnamed: 9`  
+The repository includes `seeds_dataset (2).csv`. The script uses these feature columns:
 
-These columns contained no useful information and were removed during preprocessing.
+- `Area`
+- `Perimeter`
+- `Compactness`
+- `Length of kernel`
+- `Width of kernel`
+- `Asymmetry coefficient`
+- `Length of kernel groove`
 
----
-
-## Features Used
-
-- Area  
-- Perimeter  
-- Compactness  
-- Kernel length  
-- Kernel width  
-- Asymmetry coefficient  
-- Kernel groove length  
-
----
+The target is `Class (1, 2, 3)`. The script drops `Unnamed: 8` and `Unnamed: 9` before training.
 
 ## Workflow
 
-1. Load and inspect dataset structure
-2. Remove unnecessary columns
-3. Check feature cardinality
-4. Perform basic exploratory visualization
-5. Split data into training and testing sets
-6. Train a Random Forest classifier
-7. Evaluate model performance using accuracy
+1. Load the CSV with pandas and inspect its structure.
+2. Remove the two unnamed columns.
+3. Print the number of unique values in each remaining column.
+4. Group by seed class and plot the sum of `Area`.
+5. Split features and target with `random_state=42` and scikit-learn's default test fraction.
+6. Fit a default `RandomForestClassifier`.
+7. Predict the test labels and print accuracy.
 
----
+## Technology
 
-## Model Details
+- Python
+- pandas
+- NumPy
+- Matplotlib
+- scikit-learn
 
-- **Algorithm:** Random Forest Classifier
-- **Library:** Scikit-learn
-- **Train/Test Split:** Default (random_state = 42)
-- **Evaluation Metric:** Accuracy score
+## Run locally
 
----
+```bash
+git clone https://github.com/KARTHIKEYAN-GHOST/Seed_Classification_using_RandomForest.git
+cd Seed_Classification_using_RandomForest
 
-## Visualization
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install pandas numpy matplotlib scikit-learn
+```
 
-A bar chart is generated showing the **sum of seed area grouped by class**, providing a high-level view of class distribution in the dataset.
+The script currently reads `/content/seeds_dataset (2).csv`, a Google Colab path. Change it to:
 
----
+```python
+df = pd.read_csv("seeds_dataset (2).csv")
+```
 
-## How to Run
+Then run:
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+```bash
+python randomforestclassifier_implementation.py
+```
+
+## Output
+
+The script displays a bar chart of total seed area by class and prints the accuracy score for the test split.
+
+## Notes
+
+The model uses default Random Forest settings and does not currently perform cross-validation, hyperparameter tuning, or a detailed per-class evaluation. The chart is exploratory and does not represent model feature importance.
